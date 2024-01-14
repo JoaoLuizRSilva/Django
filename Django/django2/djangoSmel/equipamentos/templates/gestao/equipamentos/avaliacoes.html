@@ -1,0 +1,38 @@
+{%extends 'gestao.html'%}
+{%block main%}
+    <table>
+        <thead>
+            <tr>
+                <th>Avaliador</th>
+                <th>Equipamento</th>
+                <th>Data</th>
+                <th>Necessidade de serviço</th>
+            </tr>
+        </thead>
+        <tbody>
+        {%for avaliacao in page.object_list%}
+            <tr>
+                <td>{{avaliacao.avaliador.username}}</td>
+                <td>{{avaliacao.equipamento.nome}}</td>
+                <td>{{avaliacao.data_avaliacao}}</td>
+                <td>
+                    {{avaliacao.condicao_equipamento}}
+                    <br>
+                    {%if avalicao.condicao_equipamento == 'pessimo' or avalicao.condicao_equipamento == 'ruim'%}
+                        Alta Necessidade
+                    {%endif%}
+                </td>
+            </tr>
+        {%endfor%}
+        </tbody>
+    </table>
+    <div class="page-links">
+        {% if page.has_previous %}
+            <a href="{% url 'lista-avaliacoes'%}?page={{page.previous_page_number}}">Anterior</a>
+        {% endif %}
+        |
+        {% if page.has_next %}
+            <a href="{% url 'lista-avaliacoes'%}?page={{page.next_page_number}}">Próximo</a>
+        {% endif %}
+    </div>
+{%endblock%}

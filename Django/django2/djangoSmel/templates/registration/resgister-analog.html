@@ -1,0 +1,11 @@
+{%extends 'base.html'%}
+{%block title%}Registro{%endblock%}
+{%block content%}
+    <h1>Registrar no Sistema de gerenciamento Esportivo Municipal</h1>
+    <form method="POST">
+        {%csrf_token%}
+        <input type="hidden" name="next" value="{{next}}">
+        {{form.as_p}}
+        <input type="submit" value="Próximo">
+    </form>
+{%endblock%}

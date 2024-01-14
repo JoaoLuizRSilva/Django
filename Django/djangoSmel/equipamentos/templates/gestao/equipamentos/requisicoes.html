@@ -1,0 +1,56 @@
+{%extends 'gestao.html'%}
+{%block main%}
+    <table>
+        <thead>
+            <tr>
+                <th>Usuário</th>
+                <th>Situação</th>
+                <th>Equipamentos e Horários</th>
+                <th>Ações</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for index in page.object_list%}
+            <tr>
+                <td>{{index.usuario}}</td>
+                <td>{{index.situacao_text}}</td>
+                <td>
+                    {%for escolha in lista_de_escolhas%}
+                        {%if escolha.uso_espaco == index%}
+                            {{escolha.equipamento}}: {{escolha.dia_semana}} das {{escolha.horario_inicio}} a {{escolha.horario_fim}}
+                            <hr>
+                        {%endif%}
+                    {%endfor%}
+                </td>
+                <td>
+                    {%if index.situacao == 'aguardando'%}
+                    <a href="/gestao/solicitacoes/editar/{{index.id}}">Editar</a> <br>
+                    <a href="https://web.whatsapp.com/send?phone=55{{index.usuario.telefone_contato}}" target="_blank">whatsapp</a> <br>
+                    <a href="/gestao/solicitacoes/autorizar/{{index.id}}">Autorizar</a><br>
+                    <a href="/gestao/solicitacoes/rejeitar/{{index.id}}">Rejeitar</a>
+                    {%endif%}
+                </td>
+                <td>
+                    {%for documento in documentos%}
+                        {%if documento.info == index%}
+                            <a href="/documentos/documento_autorizacao/{{documento.id}}">Visualizar Documento</a>
+                        {%endif%}
+                    {%endfor%}
+                </td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+    <div class="page-links">
+        {% if page.has_previous %}
+            <a href="{% url 'lista-requisicoes'%}?page={{page.previous_page_number}}">Anterior</a>
+        {% endif %}
+        {% if page.has_previous and page.has_next %}
+            |
+        {% endif %}
+        {% if page.has_next %}
+            <a href="{% url 'lista-requisicoes'%}?page={{page.next_page_number}}">Próximo</a>
+        {% endif %}
+    </div>
+{%endblock%}

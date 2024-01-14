@@ -1,0 +1,11 @@
+{% extends 'base.html'%}
+{%block title%}Inserir Documentos{%endblock%}
+{%block content%}
+    <h1>Inserir Documento</h1>
+    <form method="POST">
+        {%csrf_token%}
+        {{form.as_p}}
+        {{ form.media }}
+        <input type="submit" value="Inserir">
+    </form>
+{%endblock%}

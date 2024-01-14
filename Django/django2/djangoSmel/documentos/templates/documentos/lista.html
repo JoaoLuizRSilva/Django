@@ -1,0 +1,27 @@
+{% extends 'base.html'%}
+{%block title%}Lista de Documentos{%endblock%}
+{%block content%}
+    <a href="inserir">Inserir Documento</a>
+    <h1>Teste</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Ações</th>
+                <th>Data que foi criado</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for index in documentos%}
+                <tr>
+                    <td><a href="view/{{index.id}}">{{index.title}}</a></td>
+                    <td>
+                        <a href="editar/{{index.id}}">Editar</a>
+                        <a href="delete/{{index.id}}">Excluir</a>
+                    </td>
+                    <td>{{index.created_at}}</td>
+                </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+{%endblock%}

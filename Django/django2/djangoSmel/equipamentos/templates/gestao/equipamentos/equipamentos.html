@@ -1,0 +1,61 @@
+{%extends 'gestao.html'%}
+{%block main%}
+    <p><a href="/gestao/equipamentos/inserir/">Inserir Equipamento</a></p>
+    <p><a href="/gestao/equipamentos/avaliacoes">Lista de Avaliações</a></p>
+    <p><a href="/gestao/equipamentos/avaliar">Avaliar Equipamento</a></p>
+    <p><a href="/gestao/equipamentos/tabela">Tabela</a></p>
+    <p><a href="/gestao/solicitacoes">Listar Solicitações</a></p>
+    <p><a href="/gestao/equipamentos/requisicao_analogica">Requisição analógica</a></p>
+    <hr>
+        <p>Total de equipamentos: <span id="equipamentos"></span></p>
+        <p>Total de Requisições: <span id="requisicoes"></span></p>
+        <p>Total de Requisições Pendentes: <span id="requisicoes-pendentes"></span></p>
+        <p>Total de Requisições Autorizadas: <span id="requisicoes-autorizadas"></span></p>
+        <p>Total de Requisições Rejeitadas: <span id="requisicoes-rejeitadas"></span></p>
+        <p>Total de Equipamentos Danificados: <span id="equipamentos-danificados"></span>
+        </p>
+    <hr>
+        <canvas id="requisicoes-mensais" width="200" height="50"></canvas>
+        <canvas id="requisicoes-atualizacao-mensais" width="200" height="50"></canvas>
+        <canvas id="modalidade-populares" width="200" height="50"></canvas>
+        <canvas id="genero_biologico" width="200" height="50"></canvas>
+    <hr>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Bairro</th>
+                <th>Tipo de equipamento</th>
+                <th>Tipos de modalidades</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for equipamento in page.object_list %}
+            <tr>
+                <td>{{equipamento.nome}}</td>
+                <td>{{equipamento.bairro}}</td>
+                <td>{{equipamento.tipo_equipamento}}</td>
+                <td>
+                    {%for tipo_modalidade in equipamento.tipo_modalidade.all%}
+                        {{tipo_modalidade.nome}}<br>
+                    {%endfor%}
+                </td>
+                <td>
+                    <a href="/gestao/equipamentos/editar/{{equipamento.id}}">Editar</a>
+                    <a href="/gestao/equipamentos/delete/{{equipamento.id}}">Excluir</a>
+                </td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+    <div class="page-links">
+        {% if page.has_previous %}
+            <a href="{% url 'gestao-equipamento'%}?page={{page.previous_page_number}}">Anterior</a>
+        {% endif %}
+        |
+        {% if page.has_next %}
+            <a href="{% url 'gestao-equipamento'%}?page={{page.next_page_number}}">Próximo</a>
+        {% endif %}
+    </div>
+{%endblock%}

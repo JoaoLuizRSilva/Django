@@ -1,0 +1,46 @@
+{%extends 'base.html'%}
+{%block title%}{%endblock%}
+{%block content%}
+    <h2>Requisições</h2>
+    <form method="POST">
+        {%csrf_token%}
+        {{form.as_p}}
+        <input type="submit" value="Criar">
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>Informações</th>
+                <th>Data</th>
+                <th>Situacao</th>
+                <th>Estimava praticipantes</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for requisicao in page.object_list %}
+            <tr>
+                <td><a href="/uso_info/{{requisicao.id}}">Visualizar</a></td>
+                <td>{{requisicao.data_requisicao}}</td>
+                <td>{{requisicao.publico_alvo}}</td>
+                <td>{{requisicao.estimativa_praticipantes}} {{requisicao.publico_text}}</td>
+                <td>
+                    {%if requisicao.situacao == 'rascunho'%}
+                        <a href="uso_info/delete/{{requisicao.id}}">Excluir</a>
+                        <a href="uso_info/edit/{{requisicao.id}}">Editar</a>
+                    {%endif%}
+                </td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+    <div class="page-links">
+        {% if page.has_previous %}
+            <a href="{% url 'uso-info'%}?page={{page.previous_page_number}}">Anterior</a>
+        {% endif %}
+        |
+        {% if page.has_next %}
+            <a href="{% url 'uso-info'%}?page={{page.next_page_number}}">Próximo</a>
+        {% endif %}
+    </div>
+{%endblock%}

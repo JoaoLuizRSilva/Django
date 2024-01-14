@@ -1,0 +1,99 @@
+{%extends 'gestao.html'%}
+{%block main%}
+<!-- Local, resposnsável, modalidade, tipo atividade, público -->
+    <form method="GET">
+        <label for="equipamento">Local:</label>
+        <select name="equipamento" id="equipamento">
+            <option value="">--------------</option>
+            {% for equipamento in equipamentos %}
+                <option value="{{ equipamento.id }}">{{ equipamento.nome }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="usuario">Resposnsável</label>
+        <select name="usuario" id="usuario">
+            <option value="">--------------</option>
+            {% for usuario in usuarios%}
+                <option value="{{usuario.id}}">{{usuario.username}}</option>
+            {%endfor%}
+        </select>
+
+        <label for="modalidade">Modalidade</label>
+        <select name="modalidade" id="modalidade">
+            <option value="">--------------</option>
+            {%for modalidade in modalidades%}
+                <option value="{{modalidade.id}}">{{modalidade.nome}}</option>
+            {%endfor%}
+        </select>
+
+        <label for="atividade">Atividade: </label>
+        <select name="atividade" id="atividade">
+            <option value="">--------------</option>
+            {%for atividade in atividades%}
+                <option value="{{atividade.id}}">{{atividade.nome}}</option>
+            {%endfor%}
+        </select>
+
+        <label for="idade">Faixa de Idade:</label>
+        <select name="idade" id="idade">
+            <option value="">--------------</option>
+            {% for opcao in idade %}
+                <option value="{{opcao.id}}">{{opcao.faixa_idade}}</option>
+            {% endfor %}
+        </select>
+
+        <input type="submit" value="Filtrar">
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Horários</th>
+                <th>Segunda-Feira</th>
+                <th>Terça-Feira</th>
+                <th>Quarta-Feira</th>
+                <th>Quinta-Feira</th>
+                <th>Sexta-Feira</th>
+                <th>Sábado</th>
+                <th>Domingo</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for hora in horarios%}
+            <tr>
+                <th>{{hora.0}}:00 - {{hora.1}}:00</th>
+                {%for dias in dias_semana%}
+                <td>
+                    {%for escolha in escolha_equipamentos%}
+                        {% if escolha.dia == dias%}
+                            {%if escolha.horario_inicio.hour >= hora.0 and  hora.1 > escolha.horario_inicio.hour%}
+                                {{escolha.uso_espaco.usuario}}<br>
+                                {{escolha.equipamento}}<br>
+                                {{escolha.uso_espaco.tipo_modalidade}}<br>
+                                {{escolha.uso_espaco.tipo_atividade}}<br>
+                                {{escolha.uso_espaco.publico_alvo}}<br>
+                                <hr>
+                            {%elif escolha.horario_fim.hour > hora.0 and   hora.1 >= escolha.horario_fim.hour%}
+                                {{escolha.uso_espaco.usuario}}<br>
+                                {{escolha.equipamento}}<br>
+                                {{escolha.uso_espaco.tipo_modalidade}}<br>
+                                {{escolha.uso_espaco.tipo_atividade}}<br>
+                                {{escolha.uso_espaco.publico_alvo}}<br>
+                                <hr>
+                            {%elif hora.0 >= escolha.horario_inicio.hour and  escolha.horario_fim.hour >  hora.1%}
+                                {{escolha.uso_espaco.usuario}}<br>
+                                {{escolha.equipamento}}<br>
+                                {{escolha.uso_espaco.tipo_modalidade}}<br>
+                                {{escolha.uso_espaco.tipo_atividade}}<br>
+                                {{escolha.uso_espaco.publico_alvo}}<br>
+                                <hr>
+                            {%endif%}
+                        {% endif %}
+                    {%endfor%}
+                </td>
+                {%endfor%}
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+{%endblock%}

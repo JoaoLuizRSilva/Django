@@ -1,0 +1,41 @@
+{%extends 'base.html'%}
+{%block title%}{%endblock%}
+{%block content%}
+    <h2>Informações da Requisição</h2>
+    <ul>
+        <li>Público alvo: {{uso_espaco.publico_alvo}}</li>
+        <li>Gênero: {{uso_espaco.genero_text}}</li>
+        <li>Situação: {{uso_espaco.situacao_text}}</li>
+        <li>Estimativa de participantes: {{uso_espaco.estimativa_praticipantes}}</li>
+        <li>Tipo de atividade: {{uso_espaco.tipo_atividade}}</li>
+        <li>Tipo de modalidade: {{uso_espaco.tipo_modalidade}}</li>
+    </ul>
+    {%if uso_espaco.situacao == 'rascunho'%}
+    <form method="POST">
+        {%csrf_token%}
+        {{form.as_p}}
+        <input type="submit" value="Inserir">
+    </form>
+    {%endif%}
+    <table>
+        <thead>
+            <tr>
+                <th>Local</th>
+                <th>Dia e Horário</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for index in escolha%}
+                <tr>
+                    <td>{{index.equipamento}}</td>
+                    <td>{{index.dia_semana}} {{index.horario_inicio}} - {{index.horario_fim}}</td>
+                    <td><a href="/uso_info/{{uso_espaco.id}}/delete/{{index.id}}">Excluir</a></td>
+                </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+    {%if uso_espaco.situacao == 'rascunho'%}
+        <a href="/solicitacao/enviar/{{uso_espaco.id}}">Enviar</a>
+    {%endif%}
+{%endblock%}

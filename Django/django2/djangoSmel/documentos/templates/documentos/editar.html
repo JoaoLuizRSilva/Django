@@ -1,0 +1,11 @@
+{% extends 'base.html'%}
+{%block title%}{{documento.title}}{%endblock%}
+{%block content%}
+    <h1>{{documento.title}}</h1>
+    <form method="POST">
+        {%csrf_token%}
+        {{form.as_p}}
+        {{ form.media }}
+        <input type="submit" value="Editar">
+    </form>
+{%endblock%}

@@ -1,0 +1,9 @@
+{%extends 'gestao.html'%}
+{%block main%}
+    <h3>Inserir Equipamento</h3>
+    <form method="POST">
+        {%csrf_token%}
+        {{form.as_p}}
+        <input type="submit" value="Inserir">
+    </form>
+{%endblock%}

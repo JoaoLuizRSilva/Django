@@ -1,0 +1,95 @@
+main {
+  padding: 30px;
+}
+
+/* Reset padrão para evitar estilos indesejados */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Estilizando o body */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Estilizando o header e footer */
+header, footer, nav {
+  background-color: #222;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+}
+
+/* Estilizando tabelas */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 20px;
+  border: 1px solid #444;
+}
+
+th, td {
+  border: none;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #ddd;
+  color: #333;
+  font-weight: bold;
+}
+
+/* Estilizando botões e inputs */
+button, input[type="submit"] {
+  background-color: #3498db;
+  border: none;
+  color: #fff;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+button:hover, input[type="submit"]:hover {
+  background-color: #3498db;
+}
+
+/* Estilizando navs e links */
+nav {
+  background-color: #ddd;
+  padding: 10px;
+}
+
+ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+
+li {
+  margin: 0 15px;
+}
+
+a, p a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+a:hover, p a:hover {
+  color: #3498db;
+}
+
+/* Estilos para os links de página */
+p {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}

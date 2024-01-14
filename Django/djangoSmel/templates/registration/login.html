@@ -1,0 +1,12 @@
+{%extends 'base.html'%}
+{%block title%}Login{%endblock%}
+{%block content%}
+    <h2>Entrar no Sistema de gerenciamento Esportivo Municipal</h2>
+    <form method="POST">
+        {%csrf_token%}
+        <input type="hidden" name="next" value="{{next}}">
+        {{form.as_p}}
+        <input type="submit" value="Entrar">
+    </form>
+    <p>Ainda não possui uma conta? <a href="/accounts/register">Clique aqui!</a></p>
+{%endblock%}

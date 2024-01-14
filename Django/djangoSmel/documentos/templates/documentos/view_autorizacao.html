@@ -1,0 +1,73 @@
+{%extends 'base.html'%}
+{%block title%}Documento {{documento.id}}{%endblock%}
+{%block content%}
+    <h2>Documento {{documento.id}}</h2>
+    <ul>
+        <li>Quem requisitou: {{documento.info.usuario}}</li>
+        <li>Periodização: {{documento.data_inicio}} - {{documento.data_fim}}</li>
+        <li>Status do documento: {{documento.status}}</li>
+        <li>Situação: {{documento.info.situacao}}</li>
+        <li>Genero biologico: {{documento.info.genero_biologico}}</li>
+        <li>Publico que ira participar: {{documento.info.publico_alvo}}</li>
+        <li>Estimativa de participantes: {{documento.info.estimativa_praticipantes}}</li>
+        <li>Tipo de atividade: {{documento.info.tipo_atividade}}</li>
+        <li>Tipo de modalidade: {{documento.info.tipo_modalidade}}</li>
+    </ul>
+    <a href="/documentos/documento_autorizacao/assinatura/{{documento.id}}">Assinar</a>
+    <h2>TERMO DE AUTORIZAÇÃO DE USO DE ESPAÇO PÚBLICO MUNICIPAL</h2>
+    <p>Nº. de Ref.: TAUEPM 003/2023</p>
+    <p>O MUNICÍPIO DE NOVA FRIBURGO, Pessoa Jurídica de Direito Público Interno, com sede na Av. Alberto Braune, 225, Centro, Nova Friburgo – RJ, inscrito no CNPJ sob o nº 28.606.630/0001-23, neste ato representado pelo Douto Secretário Municipal de Esportes e Lazer, Dr. João Victor de Carvalho Duarte, vem por meio do presente instrumento firmar</p>
+    <h3>TERMO DE AUTORIZAÇÃO PARA USO DO ESPAÇO PÚBLICO MUNICIPAL</h3>
+    <p>Ora denominado 
+        {%for escolha in lista_escolhas%}
+            {% if documento.info == escolha.uso_espaco %}
+            “{{escolha.equipamento}}” nos horários de {{escolha.horario_inicio}} às {{escolha.horario_fim}}, todas as {{escolha.dia_semana}},
+            {% endif %}
+        {% endfor %}
+         a partir da assinatura do presente termo Sr. {{documento.info.usuario}}, brasileiro, portador da cédula de identidade RG nº 237.788.323-8, inscrito no Cadastro de Pessoas Físicas sob o nº 153.741.487-96, residente e domiciliado à Rua Sinésio Rocha, nº 159, no Parque Maria Teresa, na cidade de Nova Friburgo/RJ, com telefone para contato {{documento.info.usuario.telefone_contato}} e endereço eletrônico Lucasfragosonf@gmail.com, doravante denominado simplesmente AUTORIZADO.</p>
+    <p>Observado ser de relevante interesse público, o presente instrumento se dá com fulcro no art. 46 e seguintes da Lei 4.637/2018 (Lei Orgânica).</p>
+    <p>Desta forma, resolvem celebrar o presente Termo de Autorização de Uso, mediante as seguintes cláusulas e condições:</p>
+    <h3>CLÁUSULA PRIMEIRA – DO OBJETO</h3>
+    <p>O presente termo tem por objeto a autorização de uso do imóvel pertencente ao Município de Nova Friburgo, qual seja a
+        {%for escolha in lista_escolhas%}
+            {% if documento.info == escolha.uso_espaco %}
+                {{escolha.equipamento}} nos horários de {{escolha.horario_inicio}} às {{escolha.horario_fim}}, todas as {{escolha.dia_semana}},
+            {% endif %}
+        {% endfor %}
+         a partir da assinatura do presente termo.</p>
+    <h3>CLÁUSULA SEGUNDA – DA DESTINAÇÃO</h3>
+    <p>A autorização do espaço destinar-se-á única e exclusivamente para a prática esportiva e de lazer, bem como de atividades correlatas, sendo estas submetidas à apreciação desta Secretaria.</p>
+    <h3>CLÁUSULA TERCEIRA – DO PRAZO</h3>
+    <p>O prazo de vigência do presente instrumento será de até {{documento.data_fim}}, com início a partir da assinatura do presente instrumento, proibida a cessão, transferência ou locação a terceiros, no todo ou em parte do imóvel objeto do presente termo.</p>
+    <p>I – Findo o prazo prescricional, o AUTORIZADO deverá comparecer pessoalmente à Secretaria.</p>
+    <p>§1º - Caso o AUTORIZADO, por qualquer motivo, não possa comparecer à Secretaria na data estipulada do término do presente termo, poderá enviar um representante munido de procuração pública registrada em cartório.</p>
+    <p>II – De acordo com a legislação aplicável, esta autorização de uso é concedida em caráter precário, podendo ser revogada a qualquer tempo, desde que ocorra relevante interesse público.</p>
+    <p>III – A renovação do presente Termo de Autorização se dará observando-se o binômio de oportunidade e conveniência, sendo esta facultada à Secretaria Municipal de Esportes e Lazer.</p>
+    <h3>CLÁUSULA QUARTA – DAS OBRIGAÇÕES DO AUTORIZADO</h3>
+    <p>Fica o AUTORIZADO obrigado a comunicar antecipadamente à coordenação do espaço o fato de não fazer uso de determinado horário.</p>
+    <p>	I – Havendo o descumprimento desta cláusula quarta por duas vezes referentes ao mesmo horário, a utilização deste horário será automaticamente cancelada.</p>
+    <p>II – Os horários dos espaços esportivos deverão ser utilizados por grupos de 10 (dez) indivíduos ou mais.</p>
+    <p>Fica o AUTORIZADO responsável por quaisquer eventuais danos que porventura venham a ocorrer nas dependências do referido espaço público nos horários em que esta for responsável.</p>
+    <p>I – No caso de descumprimento desta cláusula, ao deixar de reparar os danos causados, o AUTORIZADO perderá o direito de uso do espaço, sendo automaticamente rescindido o presente termo.</p>
+    <p>§1º - No caso supramencionado neste inciso, o AUTORIZADO poderá responder judicialmente pelos danos ao patrimônio público.</p>
+    <p>Fica o AUTORIZADO incumbido do dever de respeitar e fazer respeitar o regulamento e as determinações constantes no espaço a ser utilizado, bem como o servidor municipal desta Secretaria que estiver presente no local.</p>
+    <p>	I – O regulamento, normas e determinações para o uso dos ginásios estarão sob a posse do servidor municipal presente no local, e estarão à disposição do AUTORIZADO para leitura ou fotocópia.</p>
+    <p>No caso de haver a necessidade de utilização do espaço público municipal objeto do presente termo por parte da Secretaria Municipal de Esportes e Lazer, visando sempre a celeridade dos atos praticados pela municipalidade, fica o AUTORIZADO automaticamente obrigado a abdicar de seus horários de uso do espaço, cedendo-os à secretaria retromencionada.</p>
+    <p>O Município de Nova Friburgo, assim como a Secretaria Municipal de Esportes e Lazer eximem-se de quaisquer responsabilidades no que concerne a danos físicos, materiais e subjetivos provenientes de qualquer natureza que possam vir a ocorrer aos usuários no horário cedido ao AUTORIZADO.</p>
+    <h3>CLÁUSULA QUINTA – DA VEDAÇÃO</h3>
+    <p>Fica expressamente vedado ao AUTORIZADO utilizar o espaço público para finalidade diversa daquela prevista no caput da Cláusula Segunda do presente termo, emprestar, transferir ou ceder a terceiros, no todo ou em parte, e a qualquer título, o bem imóvel cedido pelo Município.</p>
+    <h3>CLÁUSULA SEXTA – DA FISCALIZAÇÃO</h3>
+    <p>A fiscalização da execução do objeto da presente autorização caberá à Secretaria Municipal de Esportes e Lazer, através de funcionário a ser designado pelo Sr. Secretário, a quem deverão ser encaminhadas todas as comunicações pertinentes.</p>
+    <h3>CLÁUSULA SÉTIMA – DO FORO</h3>
+    <p>Fica eleito o foro da Comarca de Nova Friburgo para dirimir todas e quaisquer questões legais oriundas do presente instrumento, renunciando as partes a qualquer outro, por mais privilegiado que seja.</p>
+    <p>E, por assim estarem justos e contratados, assinam o presente Termo em 02 (duas) vias de igual teor e forma jurídica, para um só efeito, na presença das testemunhas abaixo.</p>
+    <p>Nova Friburgo/RJ, ______ de ____________________ de 2023.</p>
+    <p>JOÃO VICTOR DE CARVALHO DUARTE</p>
+    <p>Secretário Municipal de Esportes e Lazer</p>
+    <p>LUCAS FRAGOSO MARTINS</p>
+    <p>Autorizado</p>
+    <h3>Testemunhas:</h3>
+    <p>Nome: ________________________________      Nome: ________________________________</p>
+    <p>RG: __________________________________      RG: __________________________________</p>
+    <p>CPF: _________________________________      CPF: _________________________________</p>
+{%endblock%}
